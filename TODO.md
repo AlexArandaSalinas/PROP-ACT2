@@ -2,7 +2,7 @@ TODO list
 
 Se deben tocar solo los archivos .java para completar el TODO.
 
-- [ ] Hacer un minimax muy básico, sin euristica (si gano es infinito y si pierdo es -infinito)
+- [x] Hacer un minimax muy básico, sin euristica (si gano es infinito y si pierdo es -infinito)
 
 - [ ] Cuando esté el primer punto estabilizado, se hace el minimax con poda alfa-beta
 
