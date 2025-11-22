@@ -21,6 +21,8 @@ public class JugadorPropi implements Jugador, IAuto {
   public int moviment(Tauler t, int color) {
     int mejorColumna = -1;
     int mejorValor = Integer.MIN_VALUE;
+    int alpha = Integer.MIN_VALUE;
+    int beta = Integer.MAX_VALUE;
 
     for (int col = 0; col < t.getMida(); col++) {
       if (t.movpossible(col)) {
@@ -32,12 +34,14 @@ public class JugadorPropi implements Jugador, IAuto {
           return col;
         }
 
-        int valor = minimax(copia, PROFUNDIDAD_MAX - 1, false, color, -color, col);
+        int valor = minimax(copia, PROFUNDIDAD_MAX - 1, false, color, -color, col, alpha, beta);
 
         if (valor > mejorValor) {
           mejorValor = valor;
           mejorColumna = col;
         }
+
+        alpha = Math.max(alpha, valor);
       }
     }
 
@@ -45,9 +49,10 @@ public class JugadorPropi implements Jugador, IAuto {
   }
 
   /**
-   * Algoritmo Minimax básico
+   * Algoritmo Minimax con poda Alfa-Beta
    */
-  private int minimax(Tauler t, int profundidad, boolean esMax, int miColor, int colorActual, int ultimaColumna) {
+  private int minimax(Tauler t, int profundidad, boolean esMax, int miColor, int colorActual, int ultimaColumna,
+      int alpha, int beta) {
     // Caso base: verificar si el último movimiento fue ganador
     if (t.solucio(ultimaColumna, -colorActual)) {
       // El jugador anterior (-colorActual) acaba de ganar
@@ -79,8 +84,14 @@ public class JugadorPropi implements Jugador, IAuto {
           Tauler copia = new Tauler(t);
           copia.afegeix(col, colorActual);
 
-          int valor = minimax(copia, profundidad - 1, false, miColor, -colorActual, col);
+          int valor = minimax(copia, profundidad - 1, false, miColor, -colorActual, col, alpha, beta);
           maxValor = Math.max(maxValor, valor);
+
+          // Poda alfa:
+          alpha = Math.max(alpha, valor);
+          if (alpha >= beta) {
+            break; // Poda beta
+          }
         }
       }
 
@@ -94,8 +105,14 @@ public class JugadorPropi implements Jugador, IAuto {
           Tauler copia = new Tauler(t);
           copia.afegeix(col, colorActual);
 
-          int valor = minimax(copia, profundidad - 1, true, miColor, -colorActual, col);
+          int valor = minimax(copia, profundidad - 1, true, miColor, -colorActual, col, alpha, beta);
           minValor = Math.min(minValor, valor);
+
+          // Poda beta:
+          beta = Math.min(beta, valor);
+          if (beta <= alpha) {
+            break; // Poda alfa
+          }
         }
       }
 
