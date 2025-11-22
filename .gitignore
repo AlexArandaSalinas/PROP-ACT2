@@ -1,0 +1,41 @@
+# Archivos compilados de Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Directorios de build
+c4_the_game/build/
+c4_the_game/dist/
+c4_the_game/nbbuild/
+
+# Archivos de NetBeans
+c4_the_game/nbproject/private/
+c4_the_game/nbproject/Package-*.bash
+c4_the_game/nbproject/build-impl.xml~
+c4_the_game/nbproject/genfiles.properties
+
+# Archivos de configuración del IDE (personales)
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+*~
+
+# Archivos de depuración
+hs_err_pid*
+replay_pid*
