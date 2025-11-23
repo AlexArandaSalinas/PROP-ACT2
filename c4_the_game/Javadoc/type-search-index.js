@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"edu.epsevg.prop.lab.c4.heuristica","l":"Heuristica"},{"p":"edu.epsevg.prop.lab.c4","l":"JugadorPropi"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"edu.epsevg.prop.lab.c4","l":"Heuristica"},{"p":"edu.epsevg.prop.lab.c4","l":"JugadorPropi"}];updateSearchResults();
