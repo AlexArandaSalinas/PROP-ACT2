@@ -3,20 +3,50 @@ package edu.epsevg.prop.lab.c4;
 import edu.epsevg.prop.lab.c4.heuristica.Heuristica;
 
 /**
- * Jugador propi - Implementación con Minimax
- * "Alea jacta est"
+ * Implementación de un jugador de Conecta 4 utilizando el algoritmo Minimax con
+ * poda Alfa-Beta.
  * 
- * @author Profe
+ * <p>
+ * Este jugador utiliza una búsqueda en profundidad con poda alfa-beta para
+ * explorar
+ * el árbol de juego y encontrar la mejor jugada posible. La evaluación de
+ * posiciones
+ * intermedias se realiza mediante una función heurística que considera
+ * amenazas,
+ * oportunidades y control del centro del tablero.
+ * </p>
+ * 
+ * <p>
+ * Características principales:
+ * </p>
+ * <ul>
+ * <li>Algoritmo Minimax con poda Alfa-Beta</li>
+ * <li>Profundidad de búsqueda configurable (por defecto 8)</li>
+ * <li>Función heurística para evaluar posiciones intermedias</li>
+ * <li>Contador de nodos explorados para análisis de rendimiento</li>
+ * </ul>
+ * 
+ * @author Alex Aranda Salinas
+ * @version 1.0
  */
 public class JugadorPropi implements Jugador, IAuto {
+  /** Nombre del jugador */
   private String nom;
+
+  /** Función heurística para evaluar posiciones del tablero */
   private Heuristica heuristica;
+
+  /** Profundidad máxima de búsqueda en el árbol minimax */
   private int profundidadMax;
+
+  /** Contador de nodos explorados en la última búsqueda */
   private int nodosExplorados;
 
-  // Constantes para el algoritmo Minimax
-  private static final int VICTORIA = 10000;
-  private static final int DERROTA = -10000;
+  /** Valor que representa una victoria garantizada */
+  private static final int VICTORIA = 100000000;
+
+  /** Valor que representa una derrota garantizada */
+  private static final int DERROTA = -100000000;
 
   /**
    * Constructor con profundidad por defecto
@@ -37,9 +67,33 @@ public class JugadorPropi implements Jugador, IAuto {
     nodosExplorados = 0;
   }
 
+  /**
+   * Determina el mejor movimiento para el jugador actual.
+   * 
+   * <p>
+   * Este método implementa la lógica principal del jugador, utilizando el
+   * algoritmo
+   * Minimax con poda Alfa-Beta para explorar el árbol de juego y encontrar la
+   * mejor
+   * columna donde colocar la siguiente ficha.
+   * </p>
+   * 
+   * <p>
+   * El proceso incluye:
+   * </p>
+   * <ol>
+   * <li>Verificación de victorias inmediatas</li>
+   * <li>Evaluación de cada columna posible mediante Minimax</li>
+   * <li>Selección de la columna con mejor valoración</li>
+   * </ol>
+   * 
+   * @param t     Tablero actual del juego
+   * @param color Color del jugador (1 para rojo, -1 para azul)
+   * @return Índice de la columna donde se debe colocar la ficha (0-7)
+   */
   public int moviment(Tauler t, int color) {
     int mejorColumna = -1;
-    int mejorValor = Integer.MIN_VALUE;
+    int mejorValor = Integer.MIN_VALUE; // +1 para evitar conflicto con DERROTA
     int alpha = Integer.MIN_VALUE;
     int beta = Integer.MAX_VALUE;
 
@@ -61,8 +115,7 @@ public class JugadorPropi implements Jugador, IAuto {
 
         int valor = minimax(copia, profundidadMax - 1, false, color, -color, col, alpha, beta);
 
-        System.out.println(
-            "Col " + col + ": " + valor + (valor == mejorValor ? " (empate)" : valor > mejorValor ? " ← MEJOR" : ""));
+        System.out.println("Col " + col + ": " + valor + (valor > mejorValor ? " ← MEJOR" : ""));
 
         if (valor > mejorValor) {
           mejorValor = valor;
@@ -80,7 +133,35 @@ public class JugadorPropi implements Jugador, IAuto {
   }
 
   /**
-   * Algoritmo Minimax con poda Alfa-Beta
+   * Implementación del algoritmo Minimax con poda Alfa-Beta.
+   * 
+   * <p>
+   * Este método recursivo explora el árbol de juego alternando entre nodos MAX
+   * (maximizando la puntuación del jugador) y nodos MIN (minimizando la
+   * puntuación
+   * del oponente). La poda alfa-beta elimina ramas que no pueden influir en la
+   * decisión final, mejorando significativamente el rendimiento.
+   * </p>
+   * 
+   * <p>
+   * Casos base:
+   * </p>
+   * <ul>
+   * <li>Victoria/Derrota: Retorna valores extremos (±100000000)</li>
+   * <li>Empate: Retorna 0</li>
+   * <li>Profundidad máxima: Evalúa la posición con la función heurística</li>
+   * </ul>
+   * 
+   * @param t             Tablero actual
+   * @param profundidad   Profundidad restante de búsqueda
+   * @param esMax         true si es un nodo MAX (turno del jugador), false si es
+   *                      MIN (turno del oponente)
+   * @param miColor       Color del jugador que realiza la búsqueda
+   * @param colorActual   Color del jugador que debe mover en este nodo
+   * @param ultimaColumna Columna donde se colocó la última ficha
+   * @param alpha         Mejor valor encontrado para MAX
+   * @param beta          Mejor valor encontrado para MIN
+   * @return Valoración de la posición desde el punto de vista de miColor
    */
   private int minimax(Tauler t, int profundidad, boolean esMax, int miColor, int colorActual, int ultimaColumna,
       int alpha, int beta) {
@@ -150,6 +231,11 @@ public class JugadorPropi implements Jugador, IAuto {
     }
   }
 
+  /**
+   * Obtiene el nombre del jugador.
+   * 
+   * @return Nombre del jugador
+   */
   public String nom() {
     return nom;
   }
