@@ -1,6 +1,4 @@
-package edu.epsevg.prop.lab.c4.heuristica;
-
-import edu.epsevg.prop.lab.c4.Tauler;
+package edu.epsevg.prop.lab.c4;
 
 /**
  * Función heurística para evaluar posiciones del tablero de Conecta 4.
