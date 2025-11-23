@@ -28,7 +28,7 @@ public class Prova {
 
         System.out.println("Columna elegida: " + columna);
         System.out.println("Esperado: 3 (victoria horizontal)");
-        System.out.println("✓ Test " + (columna == 3 ? "PASADO" : "FALLADO"));
+        System.out.println("Test " + (columna == 3 ? "PASADO" : "FALLADO"));
     }
 
     /**
@@ -51,7 +51,7 @@ public class Prova {
 
         System.out.println("Columna elegida: " + columna);
         System.out.println("Esperado: 3 (bloquear amenaza)");
-        System.out.println("✓ Test " + (columna == 3 ? "PASADO" : "FALLADO"));
+        System.out.println("Test " + (columna == 3 ? "PASADO" : "FALLADO"));
     }
 
     /**
@@ -96,7 +96,7 @@ public class Prova {
 
         System.out.println("Columna elegida: " + columna);
         System.out.println("Esperado: 4 (victoria vertical)");
-        System.out.println("✓ Test " + (columna == 4 ? "PASADO" : "FALLADO"));
+        System.out.println("Test " + (columna == 4 ? "PASADO" : "FALLADO"));
     }
 
     /**
@@ -128,7 +128,7 @@ public class Prova {
 
         System.out.println("Columna elegida: " + columna);
         System.out.println("Esperado: 3 (victoria diagonal)");
-        System.out.println("✓ Test " + (columna == 3 ? "PASADO" : "FALLADO"));
+        System.out.println("Test " + (columna == 3 ? "PASADO" : "FALLADO"));
     }
 
     /**
@@ -153,7 +153,7 @@ public class Prova {
 
         System.out.println("Columna elegida: " + columna);
         System.out.println("Esperado: 7 (única columna disponible)");
-        System.out.println("✓ Test " + (columna == 7 ? "PASADO" : "FALLADO"));
+        System.out.println("Test " + (columna == 7 ? "PASADO" : "FALLADO"));
     }
 
     /**

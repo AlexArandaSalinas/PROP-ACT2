@@ -93,7 +93,7 @@ public class JugadorPropi implements Jugador, IAuto {
    */
   public int moviment(Tauler t, int color) {
     int mejorColumna = -1;
-    int mejorValor = Integer.MIN_VALUE; // +1 para evitar conflicto con DERROTA
+    int mejorValor = Integer.MIN_VALUE;
     int alpha = Integer.MIN_VALUE;
     int beta = Integer.MAX_VALUE;
 
