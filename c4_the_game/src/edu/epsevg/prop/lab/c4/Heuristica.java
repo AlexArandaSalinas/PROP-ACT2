@@ -15,7 +15,7 @@ public class Heuristica {
     /**
      * Evalúa una posición del tablero
      * 
-     * @param t Tablero a evaluar
+     * @param t       Tablero a evaluar
      * @param miColor Color del jugador (1 o -1)
      * @return Puntuación (positiva = buena, negativa = mala)
      */
@@ -41,6 +41,11 @@ public class Heuristica {
 
     /**
      * Detecta si alguien puede ganar en el siguiente turno
+     * 
+     * @param t       Tablero a analizar
+     * @param miColor Color del jugador
+     * @return Bonificación o penalización si hay amenaza, si gano o gana el
+     *         oponente
      */
     private int detectarAmenazas(Tauler t, int miColor) {
         int mida = t.getMida();
@@ -51,7 +56,7 @@ public class Heuristica {
                 Tauler copia = new Tauler(t);
                 copia.afegeix(col, miColor);
                 if (copia.solucio(col, miColor)) {
-                    return 90000000; // Puedo ganar!
+                    return 90000000;
                 }
             }
         }
@@ -62,7 +67,7 @@ public class Heuristica {
                 Tauler copia = new Tauler(t);
                 copia.afegeix(col, -miColor);
                 if (copia.solucio(col, -miColor)) {
-                    return -90000000; // El oponente puede ganar!
+                    return -90000000;
                 }
             }
         }
@@ -72,6 +77,11 @@ public class Heuristica {
 
     /**
      * Cuenta líneas de una longitud específica
+     * 
+     * @param t        Tablero a analizar
+     * @param color    Color de las fichas
+     * @param longitud Número de fichas en línea (2 o 3)
+     * @return Número de líneas encontradas
      */
     private int contarLineas(Tauler t, int color, int longitud) {
         int contador = 0;
@@ -110,6 +120,15 @@ public class Heuristica {
 
     /**
      * Verifica si hay una línea en una dirección
+     * 
+     * @param t         Tablero
+     * @param fila      Fila inicial
+     * @param col       Columna inicial
+     * @param deltaFila Incremento de fila
+     * @param deltaCol  Incremento de columna
+     * @param color     Color de las fichas
+     * @param longitud  Longitud buscada
+     * @return 1 si encuentra la línea, 0 si no
      */
     private int verificarLinea(Tauler t, int fila, int col, int deltaFila, int deltaCol, int color, int longitud) {
         int fichas = 0;
@@ -140,6 +159,10 @@ public class Heuristica {
 
     /**
      * Evalúa el control del centro
+     * 
+     * @param t       Tablero
+     * @param miColor Color del jugador
+     * @return Puntuación por control del centro
      */
     private int evaluarCentro(Tauler t, int miColor) {
         int puntuacion = 0;
